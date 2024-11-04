@@ -1,0 +1,32 @@
+def beregn_skat(indkomst):
+    bundskat_sats = 0.12  
+    mellemskat_grænse = 500000  
+    mellemskat_sats = 0.15  
+    topskat_grænse = 700000  
+    topskat_sats = 0.20  
+
+    
+    skat = indkomst * bundskat_sats
+    skattegruppe = "Bundskat"  
+
+    
+    if indkomst > mellemskat_grænse:
+        mellemskat_indkomst = min(indkomst, topskat_grænse) - mellemskat_grænse
+        skat += mellemskat_indkomst * mellemskat_sats
+        skattegruppe = "Mellemskat"  
+
+    
+    if indkomst > topskat_grænse:
+        topskat_indkomst = indkomst - topskat_grænse
+        skat += topskat_indkomst * topskat_sats
+        skattegruppe = "Topskat"  
+
+    return skat, skattegruppe
+
+
+indkomst = float(input("Indtast din årlige indkomst i DKK: "))
+skat, skattegruppe = beregn_skat(indkomst)
+
+
+print(f"Samlede skat er: {skat:.2f} DKK")
+print(f"Tilhører: {skattegruppe}")
